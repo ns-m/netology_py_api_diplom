@@ -6,6 +6,8 @@ data_from_api = VkApiWork()
 
 def main():
 
+    user_id = input('Enter user id for analysis: ')
+
     params = {
         'access_token': data_from_api.access_token,
         'v': data_from_api.version
@@ -24,9 +26,9 @@ def main():
         friend_groups_json = data_from_api.get_groups(friend['id'], params)
         try:
             friend_groups_list = [(group['id'], group['name']) for group in friend_groups_json]
-        except:
+        except KeyError:
             time.sleep(3)
-            continue
+            friend_groups_list = [(group['id'], group['name']) for group in friend_groups_json]
         friend_groups_overall = friend_groups_overall.union(friend_groups_list)
 
 

@@ -1,7 +1,8 @@
 import requests
 import json
 
-class VkApiWork:
+
+class VkApiWork():
 
 
     version = 5.89
@@ -27,9 +28,9 @@ class VkApiWork:
                 return response['response']['items']
             return response
 
-    def get_user_friends(self, common_params):
+    def get_user_friends(self, common_params, user_id):
         while True:
-            user_id = input('Enter user id for analysis: ')
+            # user_id = input('Enter user id for analysis: ')
             params = {
                 'user_id': user_id,
                 'fields': 'name'
