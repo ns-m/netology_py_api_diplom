@@ -1,19 +1,17 @@
 import requests
-import json
 
 
-class VkApiWork():
-
+class VkApiWork:
 
     version = 5.89
-    access_token = "2a0545aa68a19df8fb37eb969049ac8c06e0f80191a7608cb539ea6bb017b01296311ece43998aee0a577"
+    access_token = "73eaea320bdc0d3299faa475c196cfea1c4df9da4c6d291633f9fe" \
+                   "8f83c08c4de2a3abf89fbc3ed8a44e1"
     vk = 'https://api.vk.com/method/'
 
     def vk_params(self, version, access_token, vk):
         self.version = version
         self.access_token = access_token
         self.vk = vk
-
 
     def get_api_data(self, method, params):
         api_link = f'{self.vk}{method}'
@@ -30,7 +28,6 @@ class VkApiWork():
 
     def get_user_friends(self, common_params, user_id):
         while True:
-            # user_id = input('Enter user id for analysis: ')
             params = {
                 'user_id': user_id,
                 'fields': 'name'
@@ -43,8 +40,10 @@ class VkApiWork():
                 continue
             else:
                 break
-        right_friends = [friend for friend in friends if 'deactivated' not in friend]
-        right_friends2 = [friend for friend in right_friends if friend['can_access_closed'] == True]
+        right_friends = [friend for friend in friends if 'deactivated'
+                         not in friend]
+        right_friends2 = [friend for friend in right_friends if
+                          friend['can_access_closed'] == True]  # noqa: E712
         return user_id, right_friends2
 
     def get_groups(self, user_id, common_params):
@@ -57,4 +56,3 @@ class VkApiWork():
         params.update(common_params)
         groups = self.get_api_data('groups.get', params)
         return groups
-
